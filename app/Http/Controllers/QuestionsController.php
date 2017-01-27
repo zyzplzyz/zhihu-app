@@ -109,7 +109,13 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = Question::find($id);
+        if(Auth::user()->owns($question)){
+            $question->delete();
+            return redirect('/');
+        }
+        return back();
+
     }
 
 
