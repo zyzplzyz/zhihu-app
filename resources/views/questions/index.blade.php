@@ -13,7 +13,7 @@
                         <div class="media-body">
                             <a href="/questions/{{$question->id}}">
                                 <h4 class="media-heading">
-                                  {{$question->title}}
+                                  {!! $question->title !!}
                                 </h4>
                             </a>
                         </div>

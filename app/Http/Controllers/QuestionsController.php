@@ -62,7 +62,7 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-        $question = Question::where('id',$id)->with('topics')->first();
+        $question = Question::where('id',$id)->with('topics','answers')->first();
         return view('questions.show',compact('question'));
     }
 
