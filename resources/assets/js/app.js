@@ -14,7 +14,7 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
-
+Vue.component('question-follower-button', require('./components/QuestionFollowerButton.vue'));
 const app = new Vue({
     el: '#app'
 });

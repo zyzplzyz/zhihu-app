@@ -3,7 +3,7 @@
     @include('vendor.ueditor.assets')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{$question->title}}
@@ -26,7 +26,23 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading question-follower">
+                        <h2>{{$question->followers_count}}</h2>
+                        <span >关注者</span>
+                    </div>
+                    <div class="panel-body">
+                        {{--<a href="/questions/{{$question->id}}/follower"--}}
+                           {{--class="btn btn-default {{Auth::user()->followed($question->id) ? 'btn-success':''}} ">--}}
+                            {{--{{Auth::user()->followed($question->id) ? '已关注':'关注问题'}}--}}
+                        {{--</a>--}}
+                        <question-follower-button question="{{$question->id}}"></question-follower-button>
+                        <a href="#editor" class="btn btn-primary">撰写答案</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{$question->answers_count}}个答案
@@ -51,8 +67,7 @@
                                 </div>
                             </div>
                         @endforeach
-
-
+                        @if(Auth::check())
                         <form action="/questions/{{$question->id}}/answer" method="post">
                             {!! csrf_field() !!}
                             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
@@ -68,6 +83,9 @@
                             </div>
                             <button type="submit" class="btn btn-success pull-right" >提交答案</button>
                         </form>
+                            @else
+                            <a href="/login" class="btn btn-block btn-success">登录提交答案</a>
+                            @endif
                     </div>
 
                 </div>

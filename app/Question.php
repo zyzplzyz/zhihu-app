@@ -24,6 +24,13 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class,'followers')->withTimestamps();
+    }
+
+
+
     public function scopePublish($query)
     {
         return $query->where('is_hidden','F');

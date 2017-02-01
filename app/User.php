@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar','confirmation_token'
+        'name', 'email', 'password','avatar','confirmation_token','api_token'
     ];
 
     /**
@@ -36,9 +36,24 @@ class User extends Authenticatable
         return $this->id == $model->user_id;
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(Question::class,'followers')->withTimestamps();
+    }
+
+    public function followThis($question)
+    {
+        return $this->followers()->toggle($question);
+    }
+
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function followed($question)
+    {
+        return !! $this->followers()->where('question_id',$question)->count();
     }
 
     public function sendPasswordResetNotification($token)
